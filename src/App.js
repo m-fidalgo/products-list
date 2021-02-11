@@ -1,8 +1,9 @@
-import React from "react";
-import NewProductView from "./views/NewProductView";
-import ProductsListView from "./views/ProductsListView";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./App.css";
+
+const NewProductView = React.lazy(() => import("./views/NewProductView"));
+const ProductsListView = React.lazy(() => import("./views/ProductsListView"));
 
 function App() {
   return (
@@ -21,8 +22,17 @@ function App() {
           </header>
         </div>
         <div>
-          <Route path={"/"} exact component={NewProductView} />
-          <Route path={"/list"} component={ProductsListView} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Route
+              path={"/"}
+              exact
+              component={(props) => <NewProductView {...props} />}
+            />
+            <Route
+              path={"/list"}
+              component={(props) => <ProductsListView {...props} />}
+            />
+          </Suspense>
         </div>
       </Router>
     </div>
