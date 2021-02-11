@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ProductService } from "../../services/ProductService";
 import { Channel } from "../../services/EventService";
 import ProductsList from "../../components/ProductsList";
+import { FormattedMessage } from "react-intl";
 
 export default function ProductsListView() {
   const [products, setProducts] = useState([]);
@@ -37,7 +38,12 @@ export default function ProductsListView() {
 
   return (
     <div>
-      <h1>Lista de Produtos</h1>
+      <h1>
+        <FormattedMessage
+          defaultMessage="Products List"
+          id="product.list.title"
+        />
+      </h1>
       <ProductsList products={products} />
     </div>
   );
